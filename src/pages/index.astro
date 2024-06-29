@@ -24,21 +24,31 @@ const pages = [
 ---
 
 <Layout title="Jack Gong">
-  <h1>Hi, I'm Jack</h1>
-  <h2>What do you want to know about me?</h2>
+  <!-- <div class="flex flex-col text-center gap-8 my-8 px-2">
+    <h1 class="font-bold text-9xl max-md:text-7xl">Hi, I'm Jack</h1>
+    <h2 class="font-light text-2xl max-md:text-xl text-stone-500">
+      What would you like to know?
+    </h2>
+  </div> -->
 
   <div
-    class="overflow-hidden relative h-[500px] w-full max-w-screen-sm mx-auto"
+    id="observer"
+    class="overflow-x-hidden absolute top-1/2 -translate-x-1/2 -translate-y-1/2 left-1/2 h-screen border-2 w-full max-w-screen-sm mx-auto"
   >
     {
       pages.map((page) => {
         return (
-          <section class="absolute w-full h-full top-0 left-0 flex flex-col items-center">
+          <section class="absolute h-full w-full gap-2 top-0 left-0 bottom-0 right-0 grid grid-rows-12 items-center">
             <Image
               src={page.image}
               alt={page.name}
-              class="border-[16px] h-full w-full object-contain border-white"
+              class="h-full w-full object-contain border-white row-span-11"
             />
+            <div class="flex flex-col items-center w-fit mx-auto">
+              <h1 class="sectionName mt-auto text-4xl text-black">
+                {page.name}
+              </h1>
+            </div>
           </section>
         );
       })
@@ -65,7 +75,6 @@ const pages = [
   });
 
   const gotoSection = (index: number, direction: number) => {
-    console.log(currentIndex, sections[currentIndex]);
     index = wrap(index);
     animating = true;
 
@@ -86,16 +95,28 @@ const pages = [
     if (currentIndex == -1) {
       gsap.set(sections[index], { xPercent: 0 });
     } else {
-      t1.fromTo(
-        sections[index],
-        { xPercent: direction * 100 },
-        { xPercent: 0 }
-      ).fromTo(
-        sections[currentIndex],
-        { xPercent: 0 },
-        { xPercent: direction * -100 },
-        "<"
-      );
+      console.log(sections[currentIndex].querySelector(".sectionName"));
+      t1.set(sections[index].querySelector(".sectionName"), {
+        scale: 0.9,
+        autoAlpha: 0.5,
+      })
+        .to(sections[currentIndex].querySelector(".sectionName"), {
+          scale: 0.9,
+          autoAlpha: 0.5,
+          duration: 0.5,
+        })
+        .fromTo(sections[index], { xPercent: direction * 100 }, { xPercent: 0 })
+        .fromTo(
+          sections[currentIndex],
+          { xPercent: 0 },
+          { xPercent: direction * -100 },
+          "<"
+        )
+        .to(sections[index].querySelector(".sectionName"), {
+          scale: 1,
+          autoAlpha: 1,
+          duration: 0.5,
+        });
     }
 
     currentIndex = index;
@@ -103,6 +124,7 @@ const pages = [
 
   Observer.create({
     type: "wheel,touch,pointer",
+    target: "#observer",
     wheelSpeed: -1,
     onRight: () => {
       !animating && gotoSection(currentIndex - 1, -1);
