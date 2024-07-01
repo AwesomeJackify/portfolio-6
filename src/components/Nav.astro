@@ -1,0 +1,31 @@
+---
+const pages = [
+  {
+    name: "Portfolio",
+    url: "/portfolio",
+  },
+  {
+    name: "Resume",
+    url: "/resume",
+  },
+];
+---
+
+<nav
+  class="flex justify-between max-w-screen-sm mx-auto items-center my-4 mb-16 max-md:flex-col gap-4"
+>
+  <a href="/" class="text-3xl font-pacifico hover:text-primary transition"
+    >Jack Gong</a
+  >
+  <ul class="flex items-center">
+    {
+      pages.map((page) => (
+        <li class="mx-2 font-bold text-2xl">
+          <a href={page.url} class="link link-hover">
+            {page.name}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>
