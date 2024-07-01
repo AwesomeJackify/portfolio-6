@@ -1,0 +1,19 @@
+---
+import { Image } from "astro:assets";
+
+const { image, title } = Astro.props;
+---
+
+<section
+  class="flex gap-8 flex-col justify-start object-contain max-w-screen-sm mx-auto"
+>
+  <Image
+    src={image}
+    class="w-full object-contain object-top"
+    alt={`${title} big image`}
+  />
+  <div class="flex justify-start items-start flex-col w-fit mx-auto">
+    <h1 class="sectionName text-4xl text-black mx-auto">{title}</h1>
+    <div class="sectionUnderline h-1 bg-black w-full"></div>
+  </div>
+</section>

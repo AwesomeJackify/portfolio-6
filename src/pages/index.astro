@@ -3,152 +3,86 @@ import { Image } from "astro:assets";
 
 import Layout from "../layouts/Layout.astro";
 
-import aboutMeImg from "../assets/images/aboutMe.jpeg";
-import projectsImg from "../assets/images/projects.jpeg";
-import resumeImg from "../assets/images/resume.jpeg";
+import meImg from "../assets/images/aboutMe.jpeg";
 
-const pages = [
+const skills = [
   {
-    name: "About Me",
-    image: aboutMeImg,
+    name: "HTML",
+    xp: 100,
   },
   {
-    name: "Projects",
-    image: projectsImg,
+    name: "CSS",
+    xp: 100,
   },
   {
-    name: "Resume",
-    image: resumeImg,
+    name: "JavaScript",
+    xp: 100,
+  },
+  {
+    name: "React",
+    xp: 80,
+  },
+  {
+    name: "Python",
+    xp: 70,
   },
 ];
 ---
 
 <Layout title="Jack Gong">
-  <!-- <div class="flex flex-col text-center gap-8 my-8 px-2">
-    <h1 class="font-bold text-9xl max-md:text-7xl">Hi, I'm Jack</h1>
-    <h2 class="font-light text-2xl max-md:text-xl text-stone-500">
-      What would you like to know?
-    </h2>
-  </div> -->
+  <div class="max-w-screen-sm mx-auto flex flex-col gap-8 px-2">
+    <Image src={meImg} alt="Jack Gong" class="w-72 rounded-2xl mx-auto" />
+    <section class="flex flex-col gap-2">
+      <h1 class="text-6xl font-pacifico">Jack Gong</h1>
+      <h2 class="badge badge-primary rounded-lg p-3 text-white">
+        Software Engineer BE(Hons)
+      </h2>
+    </section>
+    <section class="flex flex-col gap-4">
+      <div class="w-fit">
+        <h1 class="text-4xl w-fit font-pacifico">About Me</h1>
+        <div class="h-1 bg-primary"></div>
+      </div>
 
-  <div
-    id="observer"
-    class="overflow-x-hidden absolute top-1/2 -translate-x-1/2 -translate-y-1/2 left-1/2 h-screen border-2 w-full max-w-screen-sm mx-auto"
-  >
-    {
-      pages.map((page) => {
-        return (
-          <section class="absolute h-full w-full gap-2 top-0 left-0 bottom-0 right-0 grid grid-rows-12 items-center">
-            <Image
-              src={page.image}
-              alt={page.name}
-              class="h-full w-full object-contain border-white row-span-11"
-            />
-            <div class="flex flex-col items-center w-fit mx-auto">
-              <h1 class="sectionName mt-auto text-4xl text-black">
-                {page.name}
-              </h1>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. In commodi
+        animi aut, nulla nisi minima totam deleniti possimus cumque vero. Et
+        repellat dolorem aut ullam dolorum. Doloribus, ab, dolores eaque
+        voluptatibus consequatur consequuntur incidunt aliquid fugit, sit facere
+        voluptatum quaerat ipsam praesentium dolorum earum odit! Natus, at
+        voluptates, voluptas distinctio deserunt esse temporibus excepturi
+        veritatis dolor impedit nesciunt reprehenderit nam obcaecati beatae
+        quaerat eius iure quibusdam minima culpa assumenda! Atque delectus ad
+        velit fugiat facere dicta repudiandae officia, ab excepturi nesciunt?
+        Iste et quos dicta, odit nam fuga doloribus ratione ducimus, illo beatae
+        explicabo optio laboriosam, esse repellat aut ipsam?
+      </p>
+      <a href="/portfolio" class="btn btn-secondary mx-auto btn-sm text-white"
+        >See my portfolio</a
+      >
+    </section>
+    <section class="flex flex-col gap-4">
+      <div class="w-fit">
+        <h1 class="text-4xl w-fit font-pacifico">My Skills</h1>
+        <div class="h-1 bg-primary"></div>
+      </div>
+      <div>
+        {
+          skills.map((skill) => (
+            <div class="grid grid-cols-[100px_1fr]">
+              <h2>{skill.name}</h2>
+              <progress
+                class="progress progress-warning w-56 self-center"
+                value={skill.xp}
+                max="100"
+              />
             </div>
-          </section>
-        );
-      })
-    }
+          ))
+        }
+      </div>
+      <a href="/resume" class="btn btn-secondary mx-auto text-white btn-sm"
+        >See my resume</a
+      >
+    </section>
   </div>
 </Layout>
-
-<script>
-  import gsap from "gsap";
-  import { Observer } from "gsap/Observer";
-
-  gsap.registerPlugin(Observer);
-
-  const sections = document.querySelectorAll("section");
-
-  let animating: boolean;
-  let currentIndex: number = -1;
-  let wrap = gsap.utils.wrap(0, sections.length);
-  let t1: gsap.core.Timeline = gsap.timeline({
-    defaults: { duration: 1.5, ease: "power1.inOut" },
-    onComplete: () => {
-      animating = false;
-    },
-  });
-
-  const gotoSection = (index: number, direction: number) => {
-    index = wrap(index);
-    animating = true;
-
-    // Reset the zIndex and autoAlpha for all sections except the current one
-    sections.forEach((section, i) => {
-      if (i !== currentIndex && i !== index) {
-        gsap.set(section, { zIndex: 0, autoAlpha: 0 });
-      }
-    });
-
-    gsap.set(sections[currentIndex], { zIndex: 10 });
-    // gsap.to(sections[currentIndex], {
-    //   filter: "blur(5px)",
-    //   duration: 0.5,
-    // });
-
-    gsap.set(sections[index], { autoAlpha: 1, zIndex: 20 });
-    if (currentIndex == -1) {
-      gsap.set(sections[index], { xPercent: 0 });
-    } else {
-      console.log(sections[currentIndex].querySelector(".sectionName"));
-      t1.set(sections[index].querySelector(".sectionName"), {
-        scale: 0.9,
-        autoAlpha: 0.5,
-      })
-        .to(sections[currentIndex].querySelector(".sectionName"), {
-          scale: 0.9,
-          autoAlpha: 0.5,
-          duration: 0.5,
-        })
-        .fromTo(sections[index], { xPercent: direction * 100 }, { xPercent: 0 })
-        .fromTo(
-          sections[currentIndex],
-          { xPercent: 0 },
-          { xPercent: direction * -100 },
-          "<"
-        )
-        .to(sections[index].querySelector(".sectionName"), {
-          scale: 1,
-          autoAlpha: 1,
-          duration: 0.5,
-        });
-    }
-
-    currentIndex = index;
-  };
-
-  Observer.create({
-    type: "wheel,touch,pointer",
-    target: "#observer",
-    wheelSpeed: -1,
-    onRight: () => {
-      !animating && gotoSection(currentIndex - 1, -1);
-    },
-    onLeft: () => !animating && gotoSection(currentIndex + 1, 1),
-    tolerance: 10,
-    preventDefault: true,
-  });
-
-  // const upButton = document.getElementById("upButton");
-  // const downButton = document.getElementById("downButton");
-
-  // if (!upButton || !downButton) {
-  //   throw new Error("Buttons not found");
-  // }
-  // upButton.addEventListener("click", () => {
-  //   !animating && gotoSection(currentIndex - 1, -1);
-  // });
-  // downButton.addEventListener("click", () => {
-  //   !animating && gotoSection(currentIndex + 1, 1);
-  // });
-
-  const queryString = window.location.search;
-  const urlParams = new URLSearchParams(queryString);
-  console.log(Number(urlParams.get("page")));
-  gotoSection(Number(urlParams.get("page")), -1);
-</script>
