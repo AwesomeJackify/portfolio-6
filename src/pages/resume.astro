@@ -1,41 +1,50 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { Image } from "astro:assets";
+
+import astromediaImg from "../assets/images/astromedia.png";
+import graduatedImg from "../assets/images/graduated.jpeg";
+import mimomaxImg from "../assets/images/mimomax.jpeg";
 
 const timeline = [
   {
     name: "Graduated from the University of Auckland",
     date: "2024",
     description:
-      "Bachelor of Engineering (First Class Honours) in Software Engineering",
+      "Bachelor of Engineering (First Class Honours) in Software Engineering.",
+    image: graduatedImg,
+    altText: "Graduation photo of me w/ my brother.",
   },
   {
     name: "The start of Astro Media",
     date: "2023",
-    description: "Offering neighbourhood web design services with a friend",
+    description:
+      "Offering neighbourhood web design services with a friend, I co-founded Astro Media to address the lack of quality websites in our area. We noticed many small businesses using outdated, slow, and confusing websites. Our mission is to deliver custom, beautiful, and affordable websites for local businesses.",
+    image: astromediaImg,
+    altText: "My partner and I with a client",
   },
   {
-    name: "Summer Internship",
+    name: "Ubiik Mimomax (Embedded Software Engineer Intern)",
     date: "2022/23",
-    description: "Embedded software engineer intern at Ubiik Mimomax",
-  },
-  {
-    name: "Started University",
-    date: "2020",
-    description: "Dean's Honours List",
+    description:
+      "During my time at Ubiik Mimomax, I upgraded the outdated NTP client, designed the CLI and CCMS, and learned about remote login, NTP, cryptography, and cross-compilation. I used BASH and PHP for backend tasks, added the NTP client to the radio's build script, and managed releases. Continuous use of GIT involved merge requests, code reviews, and a two-tier branching strategy. Key skills gained include version control, Docker, daily stand-ups, and thorough documentation.",
+    image: mimomaxImg,
+    altText: "A day at the office",
   },
 ];
 ---
 
 <Layout title="Resume">
-  <div class="max-w-screen-sm mx-auto flex flex-col gap-8 px-2">
-    <section class="flex flex-col gap-4">
+  <div class="mx-auto flex flex-col gap-8 px-2">
+    <section class="max-w-screen-sm mx-auto w-full flex flex-col gap-4">
       <div class="w-fit">
         <h1 class="text-4xl w-fit font-pacifico">My Resume</h1>
         <div class="h-1 bg-primary"></div>
       </div>
-
+    </section>
+    <section class="flex flex-col max-w-screen-lg mx-auto gap-8">
       <ul
-        class="mt-8 timeline timeline-snap-icon max-md:timeline-compact timeline-vertical"
+        class="timeline timeline-snap-icon max-md:timeline-compact timeline-vertical"
       >
         {
           timeline.map((event, index) => (
@@ -61,6 +70,18 @@ const timeline = [
                   <time class="font-mono italic">{event.date}</time>
                   <div class="text-lg font-black">{event.name}</div>
                   {event.description}
+                  {event.image && (
+                    <div
+                      class={`mt-4 flex flex-col gap-1 ${index % 2 == 0 ? "md:items-end" : ""}`}
+                    >
+                      <Image
+                        src={event.image}
+                        alt={event.name}
+                        class="w-52 object-cover"
+                      />
+                      <h4 class="italic text-xs font-light">{event.altText}</h4>
+                    </div>
+                  )}
                 </div>
                 <hr />
               </li>

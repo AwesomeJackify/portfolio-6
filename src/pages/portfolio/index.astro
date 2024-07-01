@@ -1,0 +1,50 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { Image } from "astro:assets";
+
+import savanteDesignImg from "../../assets/images/portfolio/savante-design/screenshot.png";
+
+const projects = [
+  {
+    name: "Savante Design",
+    image: savanteDesignImg,
+    url: "/portfolio/savante-design",
+  },
+];
+---
+
+<Layout title="portfolio">
+  <div class="max-w-screen-sm mx-auto flex flex-col gap-8 px-2">
+    <section class="flex flex-col gap-4">
+      <div class="w-fit">
+        <h1 class="text-4xl w-fit font-pacifico">My Portfolio</h1>
+        <div class="h-1 bg-primary"></div>
+      </div>
+    </section>
+    <section class="flex flex-col">
+      {
+        projects.map((project, index) => (
+          <a
+            href={project.url}
+            class="flex flex-col gap-1 relative group overflow-hidden rounded-lg "
+          >
+            <Image
+              src={project.image}
+              alt={project.name}
+              class="md:group-hover:scale-100 md:scale-125 transition"
+            />
+            <div class="bg-black absolute top-0 left-0 right-0 bottom-0 md:group-hover:opacity-30 opacity-0 transition" />
+            <h1 class="absolute top-1/2 text-black font-bold font-pacifico duration-500 bg-rose-200 p-4 text-4xl left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 md:group-hover:opacity-100">
+              {project.name}
+            </h1>
+            <h1
+              class={`md:hidden font-pacifico underline ${index % 2 == 0 ? "self-start" : "self-end"}`}
+            >
+              {project.name}
+            </h1>
+          </a>
+        ))
+      }
+    </section>
+  </div>
+</Layout>
