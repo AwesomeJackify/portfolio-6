@@ -1,0 +1,44 @@
+---
+import { Icon } from "astro-icon/components";
+
+const currentYear = new Date().getFullYear();
+
+const socials = [
+  {
+    name: "GitHub",
+    url: "https://github.com/AwesomeJackify",
+    icon: "mdi:github",
+  },
+  {
+    name: "LinkedIn",
+    url: "https://www.linkedin.com/in/jack-gong/",
+    icon: "mdi:linkedin",
+  },
+  {
+    name: "Email",
+    url: "mailto:jackgong48@gmail.com",
+    icon: "mdi:email",
+  },
+];
+---
+
+<footer
+  class="max-w-screen-sm mx-auto mt-16 flex flex-col items-center gap-4 mb-8"
+>
+  <div class="flex justify-center gap-8">
+    {
+      socials.map((social) => (
+        <a href={social.url} class="group">
+          <Icon
+            name={social.icon}
+            class="text-5xl rounded-full border-4 border-secondary p-1 group-hover:bg-secondary group-hover:text-white transition-colors"
+          />
+        </a>
+      ))
+    }
+  </div>
+  <h1>
+    © {currentYear}
+    <span class="font-pacifico">Jack Gong</span>. All Rights Reserved.
+  </h1>
+</footer>
