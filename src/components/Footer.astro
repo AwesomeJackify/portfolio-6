@@ -28,7 +28,12 @@ const socials = [
   <div class="flex justify-center gap-8">
     {
       socials.map((social) => (
-        <a href={social.url} target="_blank" class="group">
+        <a
+          href={social.url}
+          aria-label={social.name}
+          target="_blank"
+          class="group"
+        >
           <Icon
             name={social.icon}
             class="text-5xl rounded-full border-4 border-secondary p-1 group-hover:bg-secondary group-hover:text-white transition-colors"
