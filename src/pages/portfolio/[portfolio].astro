@@ -1,11 +1,110 @@
 ---
+import { getCollection, getEntry } from "astro:content";
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+
 export function getStaticPaths() {
-  return [{ params: { portfolio: "savante-design" } }];
+  return [
+    { params: { portfolio: "savante-design" } },
+    { params: { portfolio: "victorian-bali-spas" } },
+    { params: { portfolio: "hidden-gems-lost-landscapes" } },
+  ];
 }
 
 const { portfolio } = Astro.params;
 
+const selectedPortfolio = await getEntry("portfolio", portfolio);
+
+if (!selectedPortfolio) {
+  return {
+    status: 404,
+    error: new Error(`Portfolio item ${portfolio} not found`),
+  };
+}
+
+const data = selectedPortfolio.data;
+
 import Layout from "../../layouts/Layout.astro";
+const clientImages = import.meta.glob<{ default: ImageMetadata }>(
+  `/src/assets/images/portfolio/**/*.{jpeg,jpg,png,gif}`
+);
 ---
 
-<Layout title={portfolio}>{portfolio}</Layout>
+<Layout title={portfolio}>
+  <div class="flex flex-col gap-4 px-2 max-w-screen-sm mx-auto">
+    <section class="max-w-screen-sm mx-auto w-full flex flex-col gap-4">
+      <div class="w-fit">
+        <h1 class="text-4xl w-fit font-pacifico">{data.title}</h1>
+        <div class="h-1 bg-primary"></div>
+      </div>
+    </section>
+    <section class="flex flex-col">
+      <p>{data.description}</p>
+    </section>
+    <section class="flex flex-col ml-4 gap-1">
+      <div class="flex items-center gap-2">
+        <h1
+          class="badge badge-secondary text-white rounded-sm uppercase badge-sm"
+        >
+          Platform
+        </h1>
+        <h1 class="text-lg">Web</h1>
+      </div>
+      <div class="flex items-center gap-2">
+        <h1
+          class="badge badge-secondary text-white rounded-sm uppercase badge-sm"
+        >
+          Stack
+        </h1>
+        <div class="flex gap-1">
+          {
+            data.stack.map((tech) => (
+              <div
+                class="tooltip"
+                data-tip={tech.split(":")[1].replace(/icon|-|light/g, "")}
+              >
+                <Icon name={tech} class="text-lg" />
+              </div>
+            ))
+          }
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <h1
+          class="badge badge-secondary text-white rounded-sm uppercase badge-sm"
+        >
+          Website
+        </h1>
+        <a
+          href={data.website}
+          target="_blank"
+          class="link link-hover truncate font-light">{data.website}</a
+        >
+      </div>
+      <div class="flex items-center gap-2">
+        <h1
+          class="badge badge-secondary text-white rounded-sm uppercase badge-sm"
+        >
+          Github
+        </h1>
+        <a
+          href={data.github}
+          target="_blank"
+          class="link link-hover truncate font-light">{data.github}</a
+        >
+      </div>
+    </section>
+    <section class="flex flex-col gap-4">
+      {
+        data.gallery.map((image: any) => (
+          <Image
+            src={clientImages["/src/assets/images/portfolio/" + image]()}
+            alt={data.title}
+            class="w-full rounded-2xl"
+          />
+        ))
+      }
+    </section>
+  </div>
+</Layout>
