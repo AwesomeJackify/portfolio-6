@@ -6,8 +6,19 @@ import { Icon } from "astro-icon/components";
 import savanteDesignImg from "../../assets/images/portfolio/savante-design/screenshot.png";
 import victorianBaliSpasImg from "../../assets/images/portfolio/victorian-bali-spas/screenshot.png";
 import hiddenGemsLostLandscapesImg from "../../assets/images/portfolio/hidden-gems-lost-landscapes/screenshot.png";
+import dirteeDeedsImg from "../../assets/images/portfolio/dirtee-deeds/screenshot.png";
 
 const projects = [
+  {
+    name: "Dirt'ee Deeds",
+    image: dirteeDeedsImg,
+    url: "/portfolio/dirtee-deeds",
+    stack: [
+      "skill-icons:astro",
+      "skill-icons:react-light",
+      "skill-icons:tailwindcss-light",
+    ],
+  },
   {
     name: "Victorian Bali Spas",
     image: victorianBaliSpasImg,
@@ -62,7 +73,7 @@ const projects = [
               <Image
                 src={project.image}
                 alt={project.name}
-                class="md:group-hover:scale-100 md:scale-125 transition"
+                class="md:group-hover:scale-100 md:scale-110 transition"
               />
               <div class="bg-black absolute top-0 left-0 right-0 bottom-0 md:group-hover:opacity-30 opacity-0 transition" />
               <h1 class="absolute top-1/2 text-black font-bold font-pacifico duration-500 bg-rose-200 p-4 text-4xl left-1/2 -translate-x-1/2 text-center -translate-y-1/2 opacity-0 md:group-hover:opacity-100">
