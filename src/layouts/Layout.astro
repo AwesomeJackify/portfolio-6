@@ -71,5 +71,27 @@ const { title } = Astro.props;
         font-display: swap;
       }
     </style>
+
+    <script>
+      document.addEventListener("astro:before-preparation", (ev) => {
+        const originalLoader = ev.loader;
+        ev.loader = async function () {
+          const spinner = document.createElement("span");
+          spinner.classList.add(
+            "loading",
+            "loading-ball",
+            "text-secondary",
+            "loading-lg",
+            "fixed",
+            "right-4",
+            "bottom-4",
+            "z-20"
+          );
+          document.body.appendChild(spinner);
+          await originalLoader();
+          document.body.removeChild(spinner);
+        };
+      });
+    </script>
   </body>
 </html>
