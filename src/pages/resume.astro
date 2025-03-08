@@ -2,11 +2,20 @@
 import Layout from "../layouts/Layout.astro";
 import { Image } from "astro:assets";
 
-import astromediaImg from "../assets/images/astromedia.png";
-import graduatedImg from "../assets/images/graduated.jpeg";
-import mimomaxImg from "../assets/images/mimomax.jpeg";
+import astromediaImg from "../assets/images/resume/astromedia.png";
+import graduatedImg from "../assets/images/resume/graduated.jpeg";
+import mimomaxImg from "../assets/images/resume/mimomax.jpeg";
+import FNZImg from "../assets/images/resume/FNZ.jpeg";
 
 const timeline = [
+  {
+    name: "FNZ (Technology Solutions Graduate)",
+    date: "2024",
+    description:
+      "As part of FNZ's 45-week Graduate Programme, I gained hands-on experience in Analyst Tester, Analyst Developer, and Production Support roles, while undergoing intensive training in C#, .NET, SQL, and React to understand FNZ's software development processes. Alongside learning software testing methodologies using SQL, Confluence, and Jira, I collaborate with global teams, contribute to platform improvements, and actively participate in managing FNZ Culture Club events.",
+    image: FNZImg,
+    altText: "Round the Bays 2025",
+  },
   {
     name: "Graduated from the University of Auckland",
     date: "2024",
@@ -77,7 +86,7 @@ const timeline = [
                       <Image
                         src={event.image}
                         alt={event.name}
-                        class="w-52 object-cover"
+                        class="w-full object-cover"
                       />
                       <h4 class="italic text-xs font-light">{event.altText}</h4>
                     </div>
