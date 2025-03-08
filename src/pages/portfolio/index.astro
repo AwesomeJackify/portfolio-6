@@ -4,11 +4,22 @@ import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
 
 import savanteDesignImg from "../../assets/images/portfolio/savante-design/screenshot.png";
-import victorianBaliSpasImg from "../../assets/images/portfolio/victorian-bali-spas/screenshot.png";
+import ElevateStudiosImg from "../../assets/images/portfolio/elevate-studios/screenshot.png";
 import hiddenGemsLostLandscapesImg from "../../assets/images/portfolio/hidden-gems-lost-landscapes/screenshot.png";
 import dirteeDeedsImg from "../../assets/images/portfolio/dirtee-deeds/screenshot.png";
 
 const projects = [
+  {
+    name: "Elevate Studios",
+    image: ElevateStudiosImg,
+    url: "/portfolio/elevate-studios",
+    stack: [
+      "skill-icons:astro",
+      "skill-icons:react-light",
+      "skill-icons:tailwindcss-light",
+      "logos:greensock-icon",
+    ],
+  },
   {
     name: "Dirt'ee Deeds",
     image: dirteeDeedsImg,
@@ -17,17 +28,6 @@ const projects = [
       "skill-icons:astro",
       "skill-icons:react-light",
       "skill-icons:tailwindcss-light",
-    ],
-  },
-  {
-    name: "Victorian Bali Spas",
-    image: victorianBaliSpasImg,
-    url: "/portfolio/victorian-bali-spas",
-    stack: [
-      "skill-icons:astro",
-      "skill-icons:react-light",
-      "skill-icons:tailwindcss-light",
-      "logos:greensock-icon",
     ],
   },
   {
